@@ -13,15 +13,15 @@
  * @param[in] bool 安全モード有効 (デフォルト値: true)
  * @param[in] int ヒープ領域のサイズ (デフォルト値: 8)
  */
-Stack::Stack(const bool flag, const int heep)
+Stack::Stack(const bool flag, const int heep_size)
 {
 	this->ptr = 0;
 	this->strict = flag;
-	this->heep_size = heep;
-	this->data0 = new int[this->heep_size];
-	this->data1 = new int[this->heep_size];
+	this->tail = heep_size - 1;
+	this->data0 = new int[this->tail];
+	this->data1 = new int[this->tail];
 
-	for (int i = 0; i <= this->heep_size; i++)
+	for (int i = 0; i <= this->tail; i++)
 		this->data1[i] = 3;
 }
 
@@ -36,9 +36,9 @@ Stack::~Stack()
 }
 
 /**
- * @brief data0 のポインタの位置を取得
+ * @brief data0 のポインタを取得
  *
- * @return int ポインタの位置
+ * @return int ポインタ
  */
 int Stack::getPtr()
 {
@@ -53,16 +53,15 @@ int Stack::getPtr()
  */
 void Stack::push(int item)
 {
-	int tmp = this->getPtr();
-	printf("Pusshing %d (Ptr: %d)\n", item, tmp);
+	printf("Pusshing %d to (Ptr: %d)\n", item, this->getPtr());
 
-	if ((this->heep_size <= tmp) && (this->strict))
+	if ((this->tail < this->getPtr()) && (this->strict))
 	{
-		printf(">> WORNING: Heep overflow protection (Ptr: %d)\n", tmp);
+		printf(">> WORNING: Heep overflow protection\n");
 		return;
 	}
 
-	this->data0[tmp] = item;
+	this->data0[this->getPtr()] = item;
 	++this->ptr;
 }
 
@@ -74,18 +73,17 @@ void Stack::push(int item)
  */
 int Stack::pop()
 {
-	int tmp = this->getPtr();
+	int tmp = this->getPtr() - 1;
 
-	if ((tmp <= 0) && (this->strict))
+	if ((tmp < 0) && (this->strict))
 	{
-		printf(">> WORNING: Heep underflow protection (Ptr: %d)\n", tmp);
+		printf(">> WORNING: Heep underflow protection\n");
 		return NULL;
 	}
 
 	--this->ptr;
-	tmp = this->getPtr();
-	int val = this->data0[tmp];
-	this->data0[tmp] = NULL;
+	int val = this->data0[this->getPtr()];
+	this->data0[this->getPtr()] = 0;
 	return val;
 }
 
@@ -97,11 +95,11 @@ void Stack::getData()
 	int index0 = sizeof(this->data0) - 1;
 	int index1 = sizeof(this->data1) - 1;
 
-	printf("\n[Data0(%p)] ", &this->data0[0]);
+	printf("\n[Data0(%p)]\t", &this->data0[0]);
 	for (int i = 0; i <= index0; i++)
 		printf("%d\t", this->data0[i]);
 
-	printf("\n[Data1(%p)] ", &this->data1[0]);
+	printf("\n[Data1(%p)]\t", &this->data1[0]);
 	for (int i = 0; i <= index1; i++)
 		printf("%d\t", this->data1[i]);
 

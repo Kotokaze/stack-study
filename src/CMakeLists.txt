@@ -1,5 +1,7 @@
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SOURCES)
-add_executable(sample ${SOURCES})
-target_link_libraries(sample lib)
+add_executable(normal normal.cpp)
+target_link_libraries(normal lib)
+
+add_executable(harmful harmful.cpp)
+target_link_libraries(harmful lib)

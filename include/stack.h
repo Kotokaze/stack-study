@@ -8,7 +8,7 @@ class Stack
 {
 private:
   int ptr;
-  int heep_size;
+  int tail;
   int* data0;
   int* data1;
   bool strict;
