@@ -53,15 +53,16 @@ int Stack::getPtr()
  */
 void Stack::push(int item)
 {
-	printf("Pusshing %d to (Ptr: %d)\n", item, this->getPtr());
+	int crr = getPtr();
+	printf("Pusshing %d to (Ptr: %d)\n", item, crr);
 
-	if ((this->tail < this->getPtr()) && (this->strict))
+	if ((this->tail < crr) && (this->strict))
 	{
 		printf(">> WORNING: Heep overflow protection\n");
 		return;
 	}
 
-	this->data0[this->getPtr()] = item;
+	this->data0[crr] = item;
 	++this->ptr;
 }
 
@@ -73,7 +74,8 @@ void Stack::push(int item)
  */
 int Stack::pop()
 {
-	int tmp = this->getPtr() - 1;
+	int crr = getPtr();
+	int tmp = crr - 1;
 
 	if ((tmp < 0) && (this->strict))
 	{
@@ -82,8 +84,8 @@ int Stack::pop()
 	}
 
 	--this->ptr;
-	int val = this->data0[this->getPtr()];
-	this->data0[this->getPtr()] = 0;
+	int val = this->data0[crr];
+	this->data0[crr] = 0;
 	return val;
 }
 
