@@ -1,20 +1,21 @@
 #include <stack.h>
 
-int main()
+int
+main()
 {
-	// セーフモードを無効にしてインスタンス生成
-	Stack stk = Stack(false);
+  // セーフモードを無効にしてインスタンス生成
+  Stack stk = Stack(false);
 
-	// 書き込む要素数
-	int num = 12;
+  // 書き込む要素数
+  int num = 12;
 
-	for (int i = 0; i < num; i++)
-		stk.push(i + 1);
+  for (int i = 0; i < num; i++)
+    stk.push(i + 1);
 
-	stk.getData();
+  stk.getData();
 
-	for (int i = 0; i <= num; i++)
-		printf("Popping %d (Ptr: %d)\n", stk.pop(), stk.getPtr());
+  for (int i = 0; i <= num; i++)
+    printf("Popping %d (Ptr: %d)\n", stk.pop(), stk.getPtr());
 
-	stk.getData();
+  stk.getData();
 }

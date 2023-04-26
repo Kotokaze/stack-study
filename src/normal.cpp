@@ -1,6 +1,7 @@
 #include <stack.h>
 
-int main()
+int
+main()
 {
   // セーフモードでインスタンス生成
   Stack stk = Stack();
