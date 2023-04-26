@@ -9,8 +9,8 @@ class Stack
 private:
   int ptr;
   int tail;
-  int* data0;
-  int* data1;
+  int *data0;
+  int *data1;
   bool strict;
 
 public:
